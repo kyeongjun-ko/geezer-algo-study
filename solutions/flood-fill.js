@@ -9,41 +9,39 @@
 var floodFill = function (image, sr, sc, color) {
 	const row = image.length;
 	const column = image[0].length;
+	const visited = [...new Array(row)].map((e) => new Array(column).fill(0));
 	const searchArea = [
 		[-1, 0],
 		[1, 0],
 		[0, -1],
 		[0, 1],
 	];
-	const visited = [...new Array(row)].map((e) => new Array(column).fill(0));
 	const originColor = image[sr][sc];
 
-	const dfs = (searchTarget, visitList) => {
+	const dfs = (grid, searchTarget, visitList) => {
 		const [x, y] = searchTarget;
 
 		if (visitList[x][y] === 0 && image[x][y] === originColor) {
 			visitList[x][y] = 1;
-			image[x][y] = color;
+			grid[x][y] = color;
 
 			searchArea.forEach((newXy) => {
-				const [dX, dY] = newXy;
-				const newX = x + dX;
-				const newY = y + dY;
+				const [newX, newY] = [x + newXy[0], y + newXy[1]];
 
 				if (
 					newX >= 0 &&
 					newX < row &&
 					newY >= 0 &&
 					newY < column &&
-					image[newX][newY] === 0
+					visitList[newX][newY] === 0
 				) {
-					dfs([newX, newY], visitList);
+					dfs(grid, [newX, newY], visitList);
 				}
 			});
 		}
 
-		return;
+		return grid;
 	};
 
-	dfs([sr, sc], visited);
+	return dfs(image, [sr, sc], visited);
 };
