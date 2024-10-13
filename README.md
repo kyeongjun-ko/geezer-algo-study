@@ -26,8 +26,11 @@
 
 ## 🤹🏻‍♀️ Members
 
-총 인원 3 명
+총 인원 6 명
 
 - [김호균](https://github.com/tjd985)
 - [나성현](https://github.com/Soberanalysts)
 - [고경준](https://github.com/kyeongjun-ko)
+- [정길웅](https://github.com/DoggySummer)
+- [강바다](https://github.com/bada308)
+- [이동규](https://github.com/astro7145)
