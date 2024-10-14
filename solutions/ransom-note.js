@@ -24,9 +24,11 @@ var canConstruct = function (ransomNote, magazine) {
 			wordMap[target] -= 1;
 
 			if (wordMap[target] === 0) delete wordMap[target];
-		} else {
-			return false;
+
+			continue;
 		}
+
+		return false;
 	}
 
 	return true;
