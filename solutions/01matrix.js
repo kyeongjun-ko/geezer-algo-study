@@ -2,40 +2,32 @@
  * @param {number[][]} mat
  * @return {number[][]}
  */
-
-var changed=[]
 var updateMatrix = function(mat) {
-    for(let i = 0; i < mat.length; i++) {
-        for(let j = 0; j < mat[0].length; j++) {
-            if(mat[i][j] === 1) {
-                mat[i][j] = bfs(mat, i, j);
-                changed.push([i, j])
+    const m = mat.length, n = mat[0].length;
+    const queue = [];
+    const MAX_VALUE = m * n;
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (mat[i][j] === 0) {
+                queue.push([i, j]);
+            } else {
+                mat[i][j] = MAX_VALUE;
             }
         }
     }
+    
+    const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    while (queue.length) {
+        const [x, y] = queue.shift();
+        for (const [dx, dy] of directions) {
+            const nx = x + dx, ny = y + dy;
+            if (nx >= 0 && nx < m && ny >= 0 && ny < n && mat[nx][ny] > mat[x][y] + 1) {
+                mat[nx][ny] = mat[x][y] + 1;
+                queue.push([nx, ny]);
+            }
+        }
+    }
+    
     return mat;
 };
-
-function bfs(mat, i, j) {
-    var queue = [];
-    queue.push([i, j]);
-    var ans = 0;
-    while(queue.length > 0) {
-        var [x, y] = queue.shift();
-        var dx = [1, -1, 0, 0];
-        var dy = [0, 0, 1, -1];
-
-        for(let k = 0; k < 4; k++) {
-            var nx = x + dx[k];
-            var ny = y + dy[k];
-
-            if(nx >= mat.length || nx < 0 || ny >= mat[0].length || ny < 0 || mat[nx][ny] ===0){
-                return ans + 1;
-            } 
-            else {
-                continue;
-            }
-        }
-        ans++;
-    }
-} 
